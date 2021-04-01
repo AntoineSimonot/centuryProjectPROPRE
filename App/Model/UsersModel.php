@@ -5,7 +5,6 @@ use \PDO;
 use Cocur\Slugify\Slugify;
 
 
-
 class UsersModel 
 {
     public function login($email, $password)
