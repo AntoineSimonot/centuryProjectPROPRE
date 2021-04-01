@@ -17,4 +17,21 @@ class TournamentController extends Controller
             'tournaments' => $tournaments
         ]);
     }
+
+    public function editTournament($id)
+    {   
+        if ($id != "" ) {
+            if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['date']) && isset($_POST['price'])){
+                $tournamentModel = new TournamentModel();
+                $tournaments = $tournamentModel->editTournaments($_POST['name'], $_POST['description'], $_POST['date'], $_POST['price'], $id);
+                header('Location: /admin/homepage');
+            }
+            $this->renderTemplate('edit-create.html', [
+                'id' => $id
+            ]);
+        }
+        else {
+            header('Location: /admin/homepage');
+        }
+    }
 }

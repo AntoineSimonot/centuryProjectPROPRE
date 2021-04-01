@@ -16,7 +16,9 @@ $router->get('/account/registration', '\App\Controller\UserController@showRegist
 $router->post('/account/registration', '\App\Controller\UserController@showRegistration');
 $router->get('/account/disconnect', '\App\Controller\UserController@disconnectEvent');
 $router->get('/account/disconnect', '\App\Controller\UserController@disconnectEvent');
-$router->get('/admin/homePage', '\App\Controller\TournamentController@getTournaments');
+$router->get('/admin/homepage', '\App\Controller\TournamentController@getTournaments');
+$router->get('/admin/homepage/edit/{id}', '\App\Controller\TournamentController@editTournament');
+$router->post('/admin/homepage/edit/{id}', '\App\Controller\TournamentController@editTournament');
 // $router->get('/test/{url}', '\App\Controller\UserController@testEvent');
 
 
