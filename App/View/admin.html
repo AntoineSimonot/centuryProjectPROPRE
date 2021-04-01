@@ -18,12 +18,12 @@
         <li>{{ tournament.description}}</li>
         <li>{{ tournament.date}}</li>
         <li>{{ tournament.price}}</li>
-        <a href="/account/disconnect">supprimer</a>
-        <a href="/account/disconnect">modifier</a>
+        <a href="/admin/homepage/delete/{{ tournament.id}}">supprimer</a>
+        <a href="/admin/homepage/create/">créer</a>
         <br>
     {% endfor %}
 
-    <a href="/account/disconnect">créer</a>
+    <a href="/admin/homepage/create/">créer</a>
     
     
 </body>

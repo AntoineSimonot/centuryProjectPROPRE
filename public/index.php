@@ -16,7 +16,11 @@ $router->get('/account/registration', '\App\Controller\UserController@showRegist
 $router->post('/account/registration', '\App\Controller\UserController@showRegistration');
 $router->get('/account/disconnect', '\App\Controller\UserController@disconnectEvent');
 $router->get('/account/disconnect', '\App\Controller\UserController@disconnectEvent');
-$router->get('/admin/homePage', '\App\Controller\TournamentController@getTournaments');
+$router->get('/admin/homepage', '\App\Controller\TournamentController@getTournaments');
+$router->post('/admin/homepage', '\App\Controller\TournamentController@getTournaments');
+$router->get('/admin/homepage/delete/{id}', '\App\Controller\TournamentController@deleteTournament');
+$router->get('/admin/homepage/create', '\App\Controller\TournamentController@createTournament');
+$router->post('/admin/homepage/create', '\App\Controller\TournamentController@createTournament');
 // $router->get('/test/{url}', '\App\Controller\UserController@testEvent');
 
 

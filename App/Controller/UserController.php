@@ -23,7 +23,7 @@ class UserController extends Controller
                 $_SESSION["userId"] = $account["id"];
                 $_SESSION["userPassword"] = $account["password"];
                 if ($account["admin"] == 1) {
-                    header('Location: /admin/homePage');
+                    header('Location: /admin/homepage');
                 }
                 else {
                     return $this->renderTemplate('account-bienvenue.html', [
