@@ -18,4 +18,5 @@ $router->get('/account/disconnect', '\App\Controller\UserController@disconnectEv
 // $router->get('/test/{url}', '\App\Controller\UserController@testEvent');
 
 var_dump("testAntoine");
+dump('testRino');
 $router->run();
