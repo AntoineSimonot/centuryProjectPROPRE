@@ -20,7 +20,7 @@ $router->get('/admin/homepage', '\App\Controller\TournamentController@getTournam
 
 $router->get('/admin/homepage/edit/{id}', '\App\Controller\TournamentController@editTournament');
 $router->post('/admin/homepage/edit/{id}', '\App\Controller\TournamentController@editTournament');
-=======
+
 $router->post('/admin/homepage', '\App\Controller\TournamentController@getTournaments');
 $router->get('/admin/homepage/delete/{id}', '\App\Controller\TournamentController@deleteTournament');
 $router->get('/admin/homepage/create', '\App\Controller\TournamentController@createTournament');
