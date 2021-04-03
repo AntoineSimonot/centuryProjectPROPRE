@@ -19,17 +19,21 @@ class UserController extends Controller
             $account = $userModel->login($_POST['email'], $_POST['password']);
 
             if (isset($account["email"]) && isset($account["password"]) && isset($account["id"])) {
-                $_SESSION["userEmail"] = $account["email"];
+                $_SESSION["userEmail"] = $account["email"]; 
                 $_SESSION["userId"] = $account["id"];
                 $_SESSION["userPassword"] = $account["password"];
+                if ($account["admin"] == 1){
+                    $_SESSION["admin"] = $account["admin"];
+                }
+                
                 if ($account["admin"] == 1) {
                     header('Location: /admin/homepage');
+                      
                 }
                 else {
-                    return $this->renderTemplate('account-bienvenue.html', [
-                        'account' => $account["email"]
-                    ]);
+                    header('Location: /tournaments');
                 }
+                
             }
             else {
                 echo "Vos indentifiants sont invalides!";

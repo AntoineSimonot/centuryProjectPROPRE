@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Bonjour voici les infos sur ce tournoi : </h1>
+    <li>{{ tournament.name}}</li>
+    <li>{{ tournament.description}}</li>
+    <li>{{ tournament.price}}</li>
+    <li>{{ tournament.date}}</li>
+
+    <a href="/inscription/{{tournament.id}}">Je m'inscris!</a>
+    <br><br>    
+    <a href="/tournaments">Retour =></a>
+</body>
+</html>
+

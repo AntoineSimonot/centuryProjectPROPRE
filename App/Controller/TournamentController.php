@@ -12,10 +12,29 @@ class TournamentController extends Controller
     {
         $TournamentModel = new TournamentModel();
         $tournaments = $TournamentModel->getTournaments();
-        return $this->renderTemplate('admin.html', [
-            'account' =>  $_SESSION["userEmail"],
-            'tournaments' => $tournaments
-        ]);
+        if (isset($_SESSION["admin"])){
+            return $this->renderTemplate('admin.html', [
+                'account' =>  $_SESSION["userEmail"],
+                'tournaments' => $tournaments
+            ]);
+        }
+        else{
+            var_dump($_GET);
+            return $this->renderTemplate('account-bienvenue.html', [
+                'account' =>  $_SESSION["userEmail"],
+                'tournaments' => $tournaments
+            ]);
+        }
+        
+    }
+
+public function getTournament($id)
+{
+    $TournamentModel = new TournamentModel();
+    $tournament = $TournamentModel->getTournament($id);
+    return $this->renderTemplate('tournamentInfo.html', [
+        'tournament' => $tournament
+    ]);
     }
 
     public function editTournament($id)
@@ -71,6 +90,36 @@ class TournamentController extends Controller
             'tournaments' => $Tournament
         ]);
     }
+
+    public function getUserTournaments()
+    {   
+        $TournamentModel = new TournamentModel();
+        $Tournaments = $TournamentModel->getUserTournaments($_SESSION["userEmail"]);
+        $this->renderTemplate('user-tournament.html', [
+            'tournaments' => $Tournaments,
+        ]);
+    }
+
+    public function deleteUserFromTournament($id)
+    {   
+        $TournamentModel = new TournamentModel();
+        $Tournaments = $TournamentModel->getUserTournamentByID($_SESSION["userEmail"], $id);
+        var_dump($Tournaments["tournaments_id"]);
+        var_dump($Tournaments['users_id']);
+        $deleteUserFromTournament = $TournamentModel->deleteUserFromTournament($Tournaments["tournaments_id"], $Tournaments['users_id']);
+        header('Location: /myTournaments');
+    }
+
+    public function inscriptionTournament($id)
+    {   
+        $TournamentModel = new TournamentModel();
+        var_dump($id);
+        var_dump($_SESSION["userId"]);
+        $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
+        header('Location: /myTournaments');
+    }
+}
+
 }
 
 ?> 

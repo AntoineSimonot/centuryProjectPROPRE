@@ -8,8 +8,14 @@
 </head>
 <body>
     <h1>Bienvenue {{ account  }}</h1> 
-    
+    {% for tournament in tournaments %}
+        <li>{{ tournament.name}}</li>
+        <li>{{ tournament.date}}</li>
+        <a href="/tournament/{{tournament.id}}">Voir le tournoi</a>
+        <br>
+    {% endfor %}
     <br><br>
+    <a href="/myTournaments">Mes tournois</a>
     <a href="/account/disconnect">disconnect</a>
 </body>
 </html> 
