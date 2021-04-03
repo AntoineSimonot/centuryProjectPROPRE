@@ -47,7 +47,7 @@ class UserController extends Controller
     public function showRegistration()
     {
         
-        if (isset($_POST["emailCreation"]) && isset($_POST["passwordCreation"])) {
+        if (isset($_POST["emailCreation"]) && isset($_POST["passwordCreation"]) && isset($_POST["passwordVerification"]) && $_POST["passwordCreation"] == $_POST["passwordVerification"]) {
             $userModel = new UsersModel();
             $account = $userModel->registration($_POST['emailCreation'], $_POST['passwordCreation']);
             header('Location: /account/login');

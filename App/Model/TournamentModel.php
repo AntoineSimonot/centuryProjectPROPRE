@@ -70,4 +70,17 @@ class TournamentModel
            "price" => $price
         ]);
     }  
+
+    public function searchTournament($search){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }
+        $stmt = $db->prepare('SELECT * FROM `tournaments` WHERE `name` LIKE :name');
+        $stmt->execute([
+            'name' => '%'.$search.'%'
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

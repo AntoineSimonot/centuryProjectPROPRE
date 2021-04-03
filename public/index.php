@@ -28,5 +28,9 @@ $router->post('/admin/homepage/create', '\App\Controller\TournamentController@cr
 
 // $router->get('/test/{url}', '\App\Controller\UserController@testEvent');
 
+$router->get('/search/tournament', '\App\Controller\TournamentController@searchTournament'); // test search
 
 $router->run();
+
+
+?> 
