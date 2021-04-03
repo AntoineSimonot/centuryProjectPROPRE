@@ -122,6 +122,7 @@ class TournamentModel
         } catch (Exception $e) {
             die('error on db' . $e->getMessage());
         }
+
         $stmt = $db->prepare('DELETE FROM `users_has_tournaments` WHERE `users_has_tournaments`.`users_id` = :tournamentUserId AND `users_has_tournaments`.`tournaments_id` = :tournamentTournamentId');
         $stmt->execute([
            'tournamentTournamentId' => $tournamentTournamentId,
@@ -144,7 +145,12 @@ class TournamentModel
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }  
-        public function searchTournament($search){
+    public function searchTournament($search){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
         $stmt = $db->prepare('SELECT * FROM `tournaments` WHERE `name` LIKE :name');
         $stmt->execute([
             'name' => '%'.$search.'%'

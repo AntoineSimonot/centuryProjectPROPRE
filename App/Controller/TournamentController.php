@@ -19,7 +19,6 @@ class TournamentController extends Controller
             ]);
         }
         else{
-            var_dump($_GET);
             return $this->renderTemplate('account-bienvenue.html', [
                 'account' =>  $_SESSION["userEmail"],
                 'tournaments' => $tournaments
@@ -82,9 +81,11 @@ public function getTournament($id)
     public function searchTournament()
     {
         $Tournament = [];
+        $TournamentModel = new TournamentModel();
         if(isset($_GET['search']) && strlen($_GET['search']) >0 ){
-            $TournamentModel = new TournamentModel();
             $Tournament = $TournamentModel->searchTournament($_GET['search']);
+        }else if(strlen($_GET['search']) == 0){
+            $Tournament = $TournamentModel->getTournaments();
         }
         $this->renderTemplate('tournament-list.html.twig',[
             'tournaments' => $Tournament
@@ -104,8 +105,6 @@ public function getTournament($id)
     {   
         $TournamentModel = new TournamentModel();
         $Tournaments = $TournamentModel->getUserTournamentByID($_SESSION["userEmail"], $id);
-        var_dump($Tournaments["tournaments_id"]);
-        var_dump($Tournaments['users_id']);
         $deleteUserFromTournament = $TournamentModel->deleteUserFromTournament($Tournaments["tournaments_id"], $Tournaments['users_id']);
         header('Location: /myTournaments');
     }
@@ -113,13 +112,11 @@ public function getTournament($id)
     public function inscriptionTournament($id)
     {   
         $TournamentModel = new TournamentModel();
-        var_dump($id);
-        var_dump($_SESSION["userId"]);
         $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
         header('Location: /myTournaments');
     }
 }
 
-}
+
 
 ?> 
