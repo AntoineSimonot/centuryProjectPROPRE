@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Mes tournois en cours</h1>
+    {% for tournament in tournaments %}
+    <li>{{ tournament.name}}</li>
+    <li>{{ tournament.description}}</li>
+    <li>{{ tournament.date}}</li>
+    <li>{{ tournament.price}}</li>
+    <a href="/myTournaments/delete/{{tournament.tournaments_id}}">Me désinscrire</a>
+    <br>
+{% endfor %}
+<br>
+<a href="/tournaments">Retour =></a>
+</body>
+</html>

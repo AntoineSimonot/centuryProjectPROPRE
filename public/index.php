@@ -25,8 +25,13 @@ $router->post('/admin/homepage', '\App\Controller\TournamentController@getTourna
 $router->get('/admin/homepage/delete/{id}', '\App\Controller\TournamentController@deleteTournament');
 $router->get('/admin/homepage/create', '\App\Controller\TournamentController@createTournament');
 $router->post('/admin/homepage/create', '\App\Controller\TournamentController@createTournament');
-
+$router->get('/tournaments', '\App\Controller\TournamentController@getTournaments');
+$router->get('/tournament/{id}', '\App\Controller\TournamentController@getTournament');
 // $router->get('/test/{url}', '\App\Controller\UserController@testEvent');
-
-
+$router->get('/myTournaments', '\App\Controller\TournamentController@getUserTournaments');
+$router->get('/myTournaments/delete/{tournament.id}', '\App\Controller\TournamentController@deleteUserFromTournament');
+$router->get('/myTournaments/delete/{tournament.id}', '\App\Controller\TournamentController@deleteUserFromTournament');
+$router->get('/inscription/{tournament.id}', '\App\Controller\TournamentController@inscriptionTournament');
 $router->run();
+
+
