@@ -85,9 +85,9 @@ class TournamentModel
            "price" => $price
         ]);
     }  
-
-    public function getUserTournaments($email)
-    {
+  
+      public function getUserTournaments($email)
+        {
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
         } catch (Exception $e) {
@@ -144,4 +144,11 @@ class TournamentModel
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }  
+        public function searchTournament($search){
+        $stmt = $db->prepare('SELECT * FROM `tournaments` WHERE `name` LIKE :name');
+        $stmt->execute([
+            'name' => '%'.$search.'%'
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

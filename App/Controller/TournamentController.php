@@ -76,8 +76,19 @@ public function getTournament($id)
         } 
         else{
             header('Location: /admin/homepage/create');
+        }  
+    }
+
+    public function searchTournament()
+    {
+        $Tournament = [];
+        if(isset($_GET['search']) && strlen($_GET['search']) >0 ){
+            $TournamentModel = new TournamentModel();
+            $Tournament = $TournamentModel->searchTournament($_GET['search']);
         }
-        
+        $this->renderTemplate('tournament-list.html.twig',[
+            'tournaments' => $Tournament
+        ]);
     }
 
     public function getUserTournaments()
@@ -109,3 +120,6 @@ public function getTournament($id)
     }
 }
 
+}
+
+?> 
