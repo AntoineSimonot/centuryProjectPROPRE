@@ -51,14 +51,13 @@ body{
 .tournament-inscription{
     display: flex;
     flex-direction: column;
-    border-top: white 10px solid;
-    border-right: white 10px solid;
-    border-bottom: white 10px solid;
+    border-top: gray 10px solid;
+    border-right: gray 10px solid;
+    border-bottom: gray 10px solid;
     border-radius: 0 50px 50px 0;
     width: 45%;
     height: 800px;
     justify-content: space-between;
-
 }
 .tournament-inscription > p , .tournament-inscription > div >p  {
     font-size: 50px;
@@ -70,3 +69,13 @@ body{
     height: 200px;
     width: 90%;
 }
+.inscription-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.btn >a{
+    color: white;
+    text-decoration: none;
+}
+
