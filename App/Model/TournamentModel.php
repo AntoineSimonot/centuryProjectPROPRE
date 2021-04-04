@@ -21,6 +21,21 @@ class TournamentModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getLastTournament()
+    {
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }
+        
+        $stmt = $db->prepare('SELECT id FROM `tournaments` ORDER BY id DESC LIMIT 1');
+        $stmt->execute([
+            
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getTournament($id)
     {
         try {
@@ -77,13 +92,14 @@ class TournamentModel
         } catch (Exception $e) {
             die('error on db' . $e->getMessage());
         }
-        $stmt = $db->prepare('INSERT INTO `tournaments` (`name`, `date`, `price`, `description`) VALUES (:name, :date, :price, :description)');
+        $stmt = $db->prepare('INSERT INTO `tournaments` (`name`, `date`, `price`, `description`,`places` ) VALUES (:name, :date, :price, :description, 24)');
         $stmt->execute([
            "name" => $name,
            "description" => $description,
            "date" => $date,
            "price" => $price
         ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }  
   
       public function getUserTournaments($email)
@@ -157,4 +173,45 @@ class TournamentModel
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function personInTournament($id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT COUNT(tournaments_id) FROM `users_has_tournaments` WHERE users_id = :users_id');
+        $stmt->execute([
+            'users_id' => $id
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function isInTournament($user_id, $tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT * FROM `users_has_tournaments` WHERE users_id = :user_id AND tournaments_id = :tournament_id');
+        $stmt->execute([
+            'tournament_id' => $tournament_id,
+            'user_id' => $user_id
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function placesUpdate($tournament_id, $update){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('UPDATE `tournaments` SET `places` = `places` + :update WHERE `tournaments`.`id` = :tournament_id');
+        $stmt->execute([
+            'tournament_id' => $tournament_id,
+            'update' => $update
+        ]);
+    }
 }
+

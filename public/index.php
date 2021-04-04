@@ -28,5 +28,10 @@ $router->get('/myTournaments/delete/{tournament.id}', '\App\Controller\Tournamen
 $router->get('/myTournaments/delete/{tournament.id}', '\App\Controller\TournamentController@deleteUserFromTournament');
 $router->get('/inscription/{tournament.id}', '\App\Controller\TournamentController@inscriptionTournament');
 $router->get('/search/tournament', '\App\Controller\TournamentController@searchTournament'); 
+$router->get('/inscription/{tournament.id}', '\App\Controller\TournamentController@inscriptionTournament');
+
+// ----------------------------------------------------------
+
+$router->get('/create-team', '\App\Controller\TeamController@createTeam'); 
 $router->run();
 

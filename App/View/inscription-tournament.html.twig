@@ -7,7 +7,10 @@
    </div>
    <p class="dateCard"><span>Prix : </span> {{ tournament.price}}</p>
    <p class="price"><span>Date : </span>{{ tournament.date}}</p> 
-   <div class="inscription-btn">
-        <p class="btn btn-primary"><a href="/inscription/{{tournament.id}}">Je m'inscris!</a></p>
-   </div>
+   
+    {% if isInTournament == false %}
+        <div class="inscription-btn">
+            <p class="btn btn-primary"><a href="/inscription/{{tournament.id}}">Je m'inscris!</a></p>
+        </div>
+    {% endif %}
 </div>

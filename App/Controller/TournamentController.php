@@ -3,8 +3,10 @@ namespace App\Controller;
 session_start();
 
 use App\Model\TournamentModel;
+use App\Model\TeamModel;
 use App\Controller\UserController;
 use Framework\Controller;
+use Service\TournamentManager;
 
 class TournamentController extends Controller
 {
@@ -31,8 +33,11 @@ public function getTournament($id)
 {
     $TournamentModel = new TournamentModel();
     $tournament = $TournamentModel->getTournament($id);
+    $inscriptionTournament = $TournamentModel->isInTournament($_SESSION["userId"], $id);
+    var_dump(isset($inscriptionTournament[0]));
     return $this->renderTemplate('tournamentInfo.html', [
-        'tournament' => $tournament
+        'tournament' => $tournament,
+        'isInTournament' =>  isset($inscriptionTournament[0])
     ]);
     }
 
@@ -65,7 +70,10 @@ public function getTournament($id)
         if ($_SESSION["userId"] != "" ) {
             if (!empty($_POST['name']) && !empty($_POST['description']) && !empty($_POST['price']) && !empty($_POST['date'])){
                 $TournamentModel = new TournamentModel();
+                $TeamModel = new TeamModel();
                 $Tournament = $TournamentModel->createTournament($_POST['name'], $_POST['description'], $_POST['date'],$_POST["price"]);
+                $getLastTournament = $TournamentModel->getLastTournament();
+                $createTeams = $TeamModel->createTeams($getLastTournament["id"], $_POST['team1'], $_POST['team2'], $_POST['team3'], $_POST['team4'], $_POST['team5'], $_POST['team6'], $_POST['team7'], $_POST['team8'] );
                 header('Location: /admin/homepage');
             }
             else{
@@ -106,13 +114,32 @@ public function getTournament($id)
         $TournamentModel = new TournamentModel();
         $Tournaments = $TournamentModel->getUserTournamentByID($_SESSION["userEmail"], $id);
         $deleteUserFromTournament = $TournamentModel->deleteUserFromTournament($Tournaments["tournaments_id"], $Tournaments['users_id']);
+        $placesUpdate = $TournamentModel->placesUpdate($id, 1);
         header('Location: /myTournaments');
     }
 
     public function inscriptionTournament($id)
     {   
         $TournamentModel = new TournamentModel();
-        $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
+        $isInTournament = $TournamentModel->isInTournament($_SESSION["userId"], $id);
+        $tournament = $TournamentModel->getTournament($id);
+        if (empty($inscriptionTournament) && $tournament["places"] == 1){
+            $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
+            $placesUpdate = $TournamentModel->placesUpdate($id, -1);
+            header('Location: /create-team');
+        }
+        elseif (empty($inscriptionTournament) && $tournament["places"] > 0){
+            $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
+            $placesUpdate = $TournamentModel->placesUpdate($id, -1);
+            
+        }
+        // header('Location: /myTournaments');
+    }
+
+    public function personInTournament()
+    {   
+        $TournamentModel = new TournamentModel();
+        $inscriptionTournament = $TournamentModel->personInTournament($_SESSION["userId"]);
         header('Location: /myTournaments');
     }
 }
