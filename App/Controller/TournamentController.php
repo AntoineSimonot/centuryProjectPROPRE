@@ -120,6 +120,6 @@ public function getTournament($id)
     }
 }
 
-}
+
 
 ?> 
