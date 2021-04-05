@@ -39,13 +39,13 @@ class UserController extends Controller
                 echo "Vos indentifiants sont invalides!";
             }  
             if ($account["id"]) {
-                return $this->renderTemplate('account-bienvenue.html', [
+                return $this->renderTemplate('Account/User/Page/account-bienvenue.html', [
                     'account' => $account["email"]
                 ]);
             }
         }
             
-        return $this->renderTemplate('account-login.html.twig');
+        return $this->renderTemplate('Login-Register/account-login.html.twig');
     }
 
     public function showRegistration()
@@ -57,7 +57,7 @@ class UserController extends Controller
             header('Location: /account/login');
         }
      
-        return $this->renderTemplate('account-register.html.twig');
+        return $this->renderTemplate('Login-Register/account-register.html.twig');
     }
 
     public function disconnectEvent()
