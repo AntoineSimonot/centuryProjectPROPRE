@@ -19,17 +19,21 @@ class UserController extends Controller
             $account = $userModel->login($_POST['email'], $_POST['password']);
 
             if (isset($account["email"]) && isset($account["password"]) && isset($account["id"])) {
-                $_SESSION["userEmail"] = $account["email"];
+                $_SESSION["userEmail"] = $account["email"]; 
                 $_SESSION["userId"] = $account["id"];
                 $_SESSION["userPassword"] = $account["password"];
+                if ($account["admin"] == 1){
+                    $_SESSION["admin"] = $account["admin"];
+                }
+                
                 if ($account["admin"] == 1) {
-                    header('Location: /admin/homePage');
+                    header('Location: /admin/homepage');
+                      
                 }
                 else {
-                    return $this->renderTemplate('account-bienvenue.html', [
-                        'account' => $account["email"]
-                    ]);
+                    header('Location: /tournaments');
                 }
+                
             }
             else {
                 echo "Vos indentifiants sont invalides!";
@@ -47,7 +51,7 @@ class UserController extends Controller
     public function showRegistration()
     {
         
-        if (isset($_POST["emailCreation"]) && isset($_POST["passwordCreation"])) {
+        if (isset($_POST["emailCreation"]) && isset($_POST["passwordCreation"]) && isset($_POST["passwordVerification"]) && $_POST["passwordCreation"] == $_POST["passwordVerification"]) {
             $userModel = new UsersModel();
             $account = $userModel->registration($_POST['emailCreation'], $_POST['passwordCreation']);
             header('Location: /account/login');

@@ -59,43 +59,7 @@ class UsersModel
     //     return $stmt->fetch(PDO::FETCH_ASSOC);
     // }
 
-    // public function deleteEvent($id)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('DELETE FROM `events` WHERE id = :id');
-    //     $stmt->execute([
-    //         "id" => $id
-    //     ]);
-    // }
-
-    // public function editEvent($name, $description, $date, $id)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('UPDATE events SET name = :name, description = :description, date = :date WHERE id = :id ');
-    //     $stmt->execute([
-    //         "name" => $name,
-    //         "description" => $description,
-    //         "date" => $date,
-    //         "id" => $id
-    //     ]);
-    // }
-
-
-    // public function createEvent($name, $description, $date, $user_id, $places, $maxPlaces)
-    // {
-    //     $slugify = new Slugify();
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('INSERT INTO `events` (`name`, `description`, `date`, places, `user_id`,`slug`, `maxPlaces` ) VALUES (:name, :description, :date, :places, :user_id, :slug, :maxPlaces)');
-    //     $stmt->execute([
-    //        "name" => $name,
-    //        "description" => $description,
-    //        "date" => $date,
-    //        "places" => $places,
-    //        "user_id" => $user_id,
-    //        "slug" => $slugify->slugify($name),
-    //        "maxPlaces" => $maxPlaces
-    //     ]);
-    // }
+ 
 
     // public function buyPlace($id, $placesBought)
     // {

@@ -1,0 +1,17 @@
+<div class="tournament-content">
+    {% for tournament in tournaments %}
+        <div>
+            <div class="tournament-content-content1">
+                <p class="name"><span>Nom : </span> {{ tournament.name}}</p>
+            </div>
+            <div class="tournament-content-content2-user">
+                <p class="dateCard"><span>Date : </span>{{ tournament.date}}</p>
+                <p class="price"><span>Prix : </span> {{ tournament.price}}</p>
+                <p class="price"><span>Places disponibles : </span> {{ tournament.places}}</p>
+                <div>
+                    <a href="/tournament/{{tournament.id}}">Voir le tournoi</a>
+                </div>                 
+            </div>
+        </div>
+    {% endfor %}
+</div>
