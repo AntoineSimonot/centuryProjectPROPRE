@@ -87,7 +87,36 @@ class TeamModel
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getTeamsName($tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT teams.name FROM `teams`  INNER JOIN tournaments ON tournaments.id = teams.tournament_id WHERE tournament_id = :tournament_id');
+        $stmt->execute([
+            'tournament_id' => $tournament_id
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
    
-    
+    public function showMembersOfTeam($teams_name){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT users.email FROM users
+        INNER JOIN team_has_users ON users.id = team_has_users.users_id
+        INNER JOIN teams on teams.id = team_has_users.teams_id
+        WHERE teams.name = :teams_name
+        ');
+        $stmt->execute([
+            'teams_name' => $teams_name
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
+

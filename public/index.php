@@ -33,5 +33,7 @@ $router->get('/inscription/{tournament.id}', '\App\Controller\TournamentControll
 // ----------------------------------------------------------
 
 $router->get('/create-team', '\App\Controller\TeamController@createTeam'); 
+$router->get('/teamInfo/{team.name}', '\App\Controller\TeamController@showMembersOfTeam'); 
+
 $router->run();
 

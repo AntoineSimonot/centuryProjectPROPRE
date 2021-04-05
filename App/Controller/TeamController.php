@@ -1,6 +1,5 @@
 <?php
 namespace App\Controller;
-session_start();
 
 use App\Model\TournamentModel;
 use App\Model\TeamModel;
@@ -25,6 +24,23 @@ class TeamController extends Controller
                 $i = 0;
             }   
         }
+        header('Location: /myTournaments');
+    }
+
+    public function getTeamsName($id)
+    {
+        $TeamModel = new TeamModel();
+        return $getTeamsName = $TeamModel-> getTeamsName($id);
+       
+    }
+
+    public function showMembersOfTeam($teams_name)
+    {
+        $TeamModel = new TeamModel();
+        $showMembersOfTeam = $TeamModel-> showMembersOfTeam($teams_name);
+        $this->renderTemplate('generalData/users-of-team.html', [
+            'team' =>  $showMembersOfTeam
+        ]);
     }
 }
 ?>

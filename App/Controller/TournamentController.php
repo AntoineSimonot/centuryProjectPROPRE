@@ -4,6 +4,7 @@ session_start();
 
 use App\Model\TournamentModel;
 use App\Model\TeamModel;
+use App\Controller\TeamController;
 use App\Controller\UserController;
 use App\Controller\EmailController;
 use Framework\Controller;
@@ -42,12 +43,14 @@ class TournamentController extends Controller
 public function getTournament($id)
 {
     $TournamentModel = new TournamentModel();
+    $TeamsController = new TeamController();
     $tournament = $TournamentModel->getTournament($id);
     $inscriptionTournament = $TournamentModel->isInTournament($_SESSION["userId"], $id);
-    var_dump(isset($inscriptionTournament[0]));
+    $teams = $TeamsController->getTeamsName($id);
     return $this->renderTemplate('generalData/tournamentInfo.html', [
         'tournament' => $tournament,
-        'isInTournament' =>  isset($inscriptionTournament[0])
+        'isInTournament' =>  isset($inscriptionTournament[0]),
+        'Teams' => $teams
     ]);
     }
 
