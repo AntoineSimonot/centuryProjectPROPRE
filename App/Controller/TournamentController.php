@@ -134,8 +134,6 @@ public function getTournament($id)
         $TournamentModel = new TournamentModel();
         $isInTournament = $TournamentModel->isInTournament($_SESSION["userId"], $id);
         $tournament = $TournamentModel->getTournament($id);
-        // dump($tournament);
-        // die();
         if (empty($inscriptionTournament) && $tournament["places"] == 1){
             $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
             $placesUpdate = $TournamentModel->placesUpdate($id, -1);
