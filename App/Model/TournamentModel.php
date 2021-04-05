@@ -201,6 +201,7 @@ class TournamentModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     public function idOfpersonsInTournament($tournament_id){
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
@@ -214,6 +215,7 @@ class TournamentModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     public function placesUpdate($tournament_id, $update){
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
@@ -226,5 +228,6 @@ class TournamentModel
             'update' => $update
         ]);
     }
+
 }
 
