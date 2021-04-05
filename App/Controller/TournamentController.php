@@ -15,13 +15,13 @@ class TournamentController extends Controller
         $TournamentModel = new TournamentModel();
         $tournaments = $TournamentModel->getTournaments();
         if (isset($_SESSION["admin"])){
-            return $this->renderTemplate('admin.html', [
+            return $this->renderTemplate('Account/Admin/Page/admin.html', [
                 'account' =>  $_SESSION["userEmail"],
                 'tournaments' => $tournaments
             ]);
         }
         else{
-            return $this->renderTemplate('account-bienvenue.html', [
+            return $this->renderTemplate('Account/User/Page/account-bienvenue.html', [
                 'account' =>  $_SESSION["userEmail"],
                 'tournaments' => $tournaments
             ]);
@@ -35,7 +35,7 @@ public function getTournament($id)
     $tournament = $TournamentModel->getTournament($id);
     $inscriptionTournament = $TournamentModel->isInTournament($_SESSION["userId"], $id);
     var_dump(isset($inscriptionTournament[0]));
-    return $this->renderTemplate('tournamentInfo.html', [
+    return $this->renderTemplate('generalData/tournamentInfo.html', [
         'tournament' => $tournament,
         'isInTournament' =>  isset($inscriptionTournament[0])
     ]);
@@ -49,7 +49,7 @@ public function getTournament($id)
                 $tournaments = $tournamentModel->editTournaments($_POST['name'], $_POST['description'], $_POST['date'], $_POST['price'], $id);
                 header('Location: /admin/homepage');
             }
-            $this->renderTemplate('edit-create.html', [
+            $this->renderTemplate('Account/Admin/modifyData/edit-create.html', [
                 'id' => $id
             ]);
         }
@@ -79,7 +79,7 @@ public function getTournament($id)
             else{
                 echo "Informations invalides";
             }
-            $this->renderTemplate('tournament-create.html');
+            $this->renderTemplate('Account/Admin/modifyData/tournament-create.html');
         } 
         else{
             header('Location: /admin/homepage/create');
@@ -95,7 +95,7 @@ public function getTournament($id)
         }else if(strlen($_GET['search']) == 0){
             $Tournament = $TournamentModel->getTournaments();
         }
-        $this->renderTemplate('tournament-list.html.twig',[
+        $this->renderTemplate('Template/tournament-list.html.twig',[
             'tournaments' => $Tournament
         ]);
     }
@@ -104,7 +104,7 @@ public function getTournament($id)
     {   
         $TournamentModel = new TournamentModel();
         $Tournaments = $TournamentModel->getUserTournaments($_SESSION["userEmail"]);
-        $this->renderTemplate('user-tournament.html', [
+        $this->renderTemplate('Account/User/userData/user-tournament.html', [
             'tournaments' => $Tournaments,
         ]);
     }

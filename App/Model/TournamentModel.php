@@ -207,28 +207,13 @@ class TournamentModel
         } catch (Exception $e) {
             die('error on db' . $e->getMessage());
         }    
-        $stmt = $db->prepare('SELECT * FROM `users_has_tournaments` WHERE tournaments_id = :tournament_id
-        ');
+        $stmt = $db->prepare('SELECT * FROM `users_has_tournaments` WHERE tournaments_id = :tournament_id');
         $stmt->execute([
             'tournament_id' => $tournament_id,
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function idOfpersonsInTournament($tournament_id){
-        try {
-            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
-        } catch (Exception $e) {
-            die('error on db' . $e->getMessage());
-        }    
-        $stmt = $db->prepare('SELECT * FROM `teams` WHERE tournament_id = 26
-        ');
-        $stmt->execute([
-            'tournament_id' => $tournament_id,
-        ]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
     public function placesUpdate($tournament_id, $update){
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
