@@ -5,8 +5,18 @@ session_start();
 use App\Model\TournamentModel;
 use App\Model\TeamModel;
 use App\Controller\UserController;
+use App\Controller\EmailController;
 use Framework\Controller;
 use Service\TournamentManager;
+// -----------------------------------------------
+// require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+// -----------------------------------------------
+
+
 
 class TournamentController extends Controller
 {
@@ -133,7 +143,11 @@ public function getTournament($id)
             $placesUpdate = $TournamentModel->placesUpdate($id, -1);
             
         }
-        // header('Location: /myTournaments');
+        if(isset($_SESSION["userEmail"]) && strlen($_SESSION["userEmail"]) > 0){
+          $sendMail = new EmailController();
+          $sendMail->sendEmailInscription();
+        }
+        header('Location: /myTournaments');
     }
 
     public function personInTournament()

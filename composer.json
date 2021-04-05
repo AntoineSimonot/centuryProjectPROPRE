@@ -4,7 +4,8 @@
         "symfony/var-dumper": "^3.4",
         "bramus/router": "~1.5",
         "twig/twig": "^1.42",
-        "cocur/slugify": "^3.2"
+        "cocur/slugify": "^3.2",
+        "phpmailer/phpmailer": "^6.4"
     },
     "authors": [
         {
