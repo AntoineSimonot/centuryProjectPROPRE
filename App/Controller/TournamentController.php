@@ -140,9 +140,11 @@ public function getTournament($id)
         if (empty($inscriptionTournament) && $tournament["places"] == 1){
             $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
             $placesUpdate = $TournamentModel->placesUpdate($id, -1);
-            $sendMail = new EmailController();
-            $sendMail->sendEmailInscription($tournament['name'],$tournament['date']);
-            header('Location: /create-team');
+            // $sendMail = new EmailController();
+            // $sendMail->sendEmailInscription($tournament['name'],$tournament['date']);
+            header("Location: /create-team?id=$id");
+     
+            
         }
         elseif (empty($inscriptionTournament) && $tournament["places"] > 0){
             $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);

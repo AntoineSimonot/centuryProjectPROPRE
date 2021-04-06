@@ -24,7 +24,8 @@ class TeamController extends Controller
                 $i = 0;
             }   
         }
-        header('Location: /myTournaments');
+        // header('Location: /myTournaments');
+        var_dump($idOfteamsInTournament);
     }
 
     public function getTeamsName($id)
