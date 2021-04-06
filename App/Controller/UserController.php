@@ -8,6 +8,7 @@ if (!isset($_SESSION["accountId"])) {
 use App\Model\UsersModel;
 use App\Model\TournamentModel;
 use App\Controller\TournamentController;
+use App\Controller\EmailController;
 use Framework\Controller;
 
 class UserController extends Controller
@@ -51,9 +52,11 @@ class UserController extends Controller
     public function showRegistration()
     {
         
-        if (isset($_POST["emailCreation"]) && isset($_POST["passwordCreation"]) && isset($_POST["passwordVerification"]) && $_POST["passwordCreation"] == $_POST["passwordVerification"]) {
+        if (isset($_POST["emailCreation"]) && isset($_POST["passwordCreation"]) && isset($_POST["passwordVerification"]) && isset($_POST["pseudo"]) && $_POST["passwordCreation"] == $_POST["passwordVerification"]  ) {
             $userModel = new UsersModel();
-            $account = $userModel->registration($_POST['emailCreation'], $_POST['passwordCreation']);
+            $account = $userModel->registration($_POST['emailCreation'], $_POST['passwordCreation'],$_POST["pseudo"]);
+            $sendMail = new EmailController();
+            $sendMail->sendEmailInscription($_POST["emailCreation"],$_POST["pseudo"]);
             header('Location: /account/login');
         }
      
