@@ -23,18 +23,19 @@ class UsersModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function registration($email, $password)
+    public function registration($email, $password, $pseudo)
     {
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
         } catch (Exception $e) {
             die('error on db' . $e->getMessage());
         }
-        
-        $stmt = $db->prepare("INSERT INTO `users` (`email`, `password`, `admin`) VALUES (:email, :password, 0)");
+
+        $stmt = $db->prepare("INSERT INTO `users` (`email`, `password`, `admin`, `pseudo`) VALUES (:email, :password, 0,:pseudo)");
         $stmt->execute([
             "email" => $email,
-            "password" => $password
+            "password" => $password,
+            "pseudo" => $pseudo
         ]);
     }
 

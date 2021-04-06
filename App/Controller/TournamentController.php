@@ -129,7 +129,8 @@ public function getTournament($id)
         $Tournaments = $TournamentModel->getUserTournamentByID($_SESSION["userEmail"], $id);
         $deleteUserFromTournament = $TournamentModel->deleteUserFromTournament($Tournaments["tournaments_id"], $Tournaments['users_id']);
         $placesUpdate = $TournamentModel->placesUpdate($id, 1);
-        header('Location: /myTournaments');
+        $sendMail = new EmailController();
+        $sendMail->sendEmailUnsub($Tournaments['name'],$Tournaments['date']);
     }
 
     public function inscriptionTournament($id)
@@ -141,14 +142,14 @@ public function getTournament($id)
             $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
             $placesUpdate = $TournamentModel->placesUpdate($id, -1);
             $sendMail = new EmailController();
-            $sendMail->sendEmailInscription($tournament['name'],$tournament['date']);
+            $sendMail->sendEmailInscriptionToTournament($tournament['name'],$tournament['date']);
             header('Location: /create-team');
         }
         elseif (empty($inscriptionTournament) && $tournament["places"] > 0){
             $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
             $placesUpdate = $TournamentModel->placesUpdate($id, -1);
             $sendMail = new EmailController();
-            $sendMail->sendEmailInscription($tournament['name'],$tournament['date']);
+            $sendMail->sendEmailInscriptionToTournament($tournament['name'],$tournament['date']);
         }
     }
 
