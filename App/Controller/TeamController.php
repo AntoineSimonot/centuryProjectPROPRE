@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Model\TournamentModel;
 use App\Model\TeamModel;
+use App\Controller\TournamentController;
+use App\Controller\MatchController;
 use App\Controller\UserController;
 use Framework\Controller;
 use Service\TournamentManager;
@@ -13,6 +15,7 @@ class TeamController extends Controller
     {
         $i = 0;
         $TeamModel = new TeamModel();
+        $MatchController = new MatchController();
         $idOfpersonsInTournament = $TeamModel-> idOfpersonsInTournament($_GET["id"]);
         $idOfteamsInTournament = $TeamModel-> idOfteamsInTournament($_GET["id"]);
         foreach ($idOfpersonsInTournament as $key => $id_person) {
@@ -24,8 +27,8 @@ class TeamController extends Controller
                 $i = 0;
             }   
         }
-        // header('Location: /myTournaments');
-        var_dump($idOfteamsInTournament);
+        $MatchController->createMatchs();
+        header('Location: /myTournaments');
     }
 
     public function getTeamsName($id)
