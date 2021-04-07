@@ -43,7 +43,8 @@ class TeamController extends Controller
         $TeamModel = new TeamModel();
         $showMembersOfTeam = $TeamModel-> showMembersOfTeam($teams_name);
         $this->renderTemplate('generalData/users-of-team.html', [
-            'team' =>  $showMembersOfTeam
+            'team' =>  $showMembersOfTeam,
+            'teamName' => $teams_name
         ]);
     }
 }

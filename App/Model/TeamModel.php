@@ -107,7 +107,7 @@ class TeamModel
         } catch (Exception $e) {
             die('error on db' . $e->getMessage());
         }    
-        $stmt = $db->prepare('SELECT users.email FROM users
+        $stmt = $db->prepare('SELECT users.pseudo FROM users
         INNER JOIN team_has_users ON users.id = team_has_users.users_id
         INNER JOIN teams on teams.id = team_has_users.teams_id
         WHERE teams.name = :teams_name
