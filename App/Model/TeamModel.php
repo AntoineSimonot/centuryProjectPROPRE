@@ -74,6 +74,19 @@ class TeamModel
             'team_id' => $teams_id
         ]);
     }
+
+    public function insertWinner($teams_id, $tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('UPDATE `tournaments` SET `winner` = :winner WHERE `tournaments`.`id` = :tournament_id;');
+        $stmt->execute([
+            'tournament_id' => $tournament_id,
+            'winner' => $teams_id
+        ]);
+    }
     
     public function NumberOfpersonsInTeam($teams_id){
         try {
