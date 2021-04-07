@@ -30,12 +30,19 @@ class MatchController extends Controller
         }
     }
 
-    public function showMatchs()
+    public function showMatchs($id)
     {  
-       var_dump("test");
        $MatchModel = new MatchModel();
-       $match = $MatchModel->showMatchs(1);
-       var_dump($match);
+       $TeamModel = new TeamController();
+       $teams = $TeamModel->getTeamsName($id);
+       $match = $MatchModel->showMatchs(1, $id);
+       $showNameOfTeams = $MatchModel->showNameOfTeams(1, $id);
+       var_dump($showNameOfTeams);
+       $this->renderTemplate('generalData/tournamentBracket.html', [
+        'match' => $match,
+        'teamName' => $showNameOfTeams,
+        'myKey' => 1
+    ]);
     }
 }
 
