@@ -8,6 +8,7 @@ use Bramus\Router\Router;
 // Create Router instance
 $router = new Router();
 $router->get('/tournament/matchs/{id}', '\App\Controller\MatchController@showMatchs'); 
+$router->post('/tournament/matchs/{id}', '\App\Controller\MatchController@showMatchs'); 
 $router->get('/account/login', '\App\Controller\UserController@showLogin');
 $router->post('/account/login', '\App\Controller\UserController@showLogin');
 $router->get('/account/registration', '\App\Controller\UserController@showRegistration');
@@ -32,7 +33,7 @@ $router->get('/inscription/{tournament.id}', '\App\Controller\TournamentControll
 
 // ----------------------------------------------------------
 
-$router->get('/create-team', '\App\Controller\TeamController@createTeam'); 
+$router->get('/create-team/{id}', '\App\Controller\TeamController@createTeam'); 
 $router->get('/teamInfo/{team.name}', '\App\Controller\TeamController@showMembersOfTeam'); 
 
 $router->run();

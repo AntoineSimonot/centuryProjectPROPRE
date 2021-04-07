@@ -11,13 +11,13 @@ use Service\TournamentManager;
 
 class TeamController extends Controller
 {
-    public function createTeam()
+    public function createTeam($id)
     {
         $i = 0;
         $TeamModel = new TeamModel();
         $MatchController = new MatchController();
-        $idOfpersonsInTournament = $TeamModel-> idOfpersonsInTournament($_GET["id"]);
-        $idOfteamsInTournament = $TeamModel-> idOfteamsInTournament($_GET["id"]);
+        $idOfpersonsInTournament = $TeamModel-> idOfpersonsInTournament($id);
+        $idOfteamsInTournament = $TeamModel-> idOfteamsInTournament($id);
         foreach ($idOfpersonsInTournament as $key => $id_person) {
             $insertUserInTeam = $TeamModel->  insertUserInTeam($id_person["users_id"], ($idOfteamsInTournament[$i]["id"]));
             if ($i < 7) {
@@ -27,7 +27,7 @@ class TeamController extends Controller
                 $i = 0;
             }   
         }
-        $MatchController->createMatchs();
+        $MatchController->createMatchs($id);
         header('Location: /myTournaments');
     }
 
