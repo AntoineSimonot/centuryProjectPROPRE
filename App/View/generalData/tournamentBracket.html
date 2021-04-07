@@ -29,7 +29,7 @@
                     <tbody class="tournament-bracket__content">
                       <tr class="tournament-bracket__team tournament-bracket__team--winner">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code " title="Canada">CAN</abbr>
+                          <abbr class="tournament-bracket__code " title="Canada">{{team[0].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-ca" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -38,7 +38,7 @@
                       </tr>
                       <tr class="tournament-bracket__team">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code" title="Kazakhstan">KAZ</abbr>
+                          <abbr class="tournament-bracket__code" title="Kazakhstan">{{team[1].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-kz" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -65,7 +65,7 @@
                     <tbody class="tournament-bracket__content">
                       <tr class="tournament-bracket__team tournament-bracket__team--winner">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code" title="Czech Republic">CZE</abbr>
+                          <abbr class="tournament-bracket__code" title="Czech Republic">{{team[2].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-cz" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -74,7 +74,7 @@
                       </tr>
                       <tr class="tournament-bracket__team">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code" title="Unitede states of America">USA</abbr>
+                          <abbr class="tournament-bracket__code" title="Unitede states of America">{{team[3].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-us" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -100,7 +100,7 @@
                     <tbody class="tournament-bracket__content">
                       <tr class="tournament-bracket__team tournament-bracket__team--winner">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code" title="Finland">FIN</abbr>
+                          <abbr class="tournament-bracket__code" title="Finland">{{team[4].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-fi" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -109,7 +109,7 @@
                       </tr>
                       <tr class="tournament-bracket__team">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code" title="Sweden">SVE</abbr>
+                          <abbr class="tournament-bracket__code" title="Sweden">{{team[5].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-se" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -136,7 +136,7 @@
                     <tbody class="tournament-bracket__content">
                       <tr class="tournament-bracket__team tournament-bracket__team--winner">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code" title="Russia">RUS</abbr>
+                          <abbr class="tournament-bracket__code" title="Russia">{{team[6].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-ru" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -145,7 +145,7 @@
                       </tr>
                       <tr class="tournament-bracket__team">
                         <td class="tournament-bracket__country">
-                          <abbr class="tournament-bracket__code" title="Belarus">BEL</abbr>
+                          <abbr class="tournament-bracket__code" title="Belarus">{{team[7].name}}</abbr>
                           <span class="tournament-bracket__flag flag-icon flag-icon-by" aria-label="Flag"></span>
                         </td>
                         <td class="tournament-bracket__score">
@@ -319,6 +319,27 @@
           </div>
         </div>
       </div>
+      <section class="chooseWinner"> 
+        <form action="" method="post">
+          {% for key, team in match %}
+            {% if key == 0 %}
+            <fieldset id="match1">
+              <label for="{{teamName[key].name}}">{{teamName[key].name}}</label>
+              <input type="radio" value="{{teamName[key].name}}" name="match1" id="{{teamName[key].name}}">
+              <input type="radio" value="{{teamName[key+ 1].name}}" name="match1" id="{{teamName[key+1].name}}"">
+              <label for="{{teamName[key+1].name}}">{{teamName[key+1].name}}</label>
+            </fieldset>
+            {% else %}
+            <fieldset id="match{{key + 1}}">
+              <label for="{{teamName[myKey + 1].name}}">{{teamName[myKey + 1].name}}</label>
+              <input type="radio" value="{{teamName[myKey + 1].name}}" name="match1" id="{{teamName[myKey + 1].name}}">
+              <input type="radio" value="{{teamName[myKey + 2].name}}" name="match1" id="{{teamName[myKey + 2].name}}">
+              <label for="{{teamName[myKey + 2].name}}">{{teamName[myKey + 2].name}}</label>
+            </fieldset>
+            {% set myKey = myKey + 2 %}
+            {% endif %}
+          {% endfor %}
+        </form>   
+      </section>
 </body>
 </html>
-
