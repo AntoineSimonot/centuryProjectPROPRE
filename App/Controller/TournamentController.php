@@ -51,7 +51,8 @@ public function getTournament($id)
         'tournament' => $tournament,
         'isInTournament' =>  isset($inscriptionTournament[0]),
         'Admin' => isset($_SESSION["admin"]),
-        'Teams' => $teams
+        'Teams' => $teams,
+        'Place' => $tournament['places']
     ]);
     }
 

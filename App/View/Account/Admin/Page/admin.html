@@ -28,15 +28,21 @@
 
     
     <script>
+        let delaySendTimer = null
+        let sendDelay = 200
         let searchInput = document.querySelector('#search')
         let tournamentListBlock = document.querySelector('#tournament-list')
         
         searchInput.addEventListener('input',function(evt){
-            fetch(`/search/tournament?search=${this.value}`)
+            clearTimeout(delaySendTimer)
+            delaySendTimer = setTimeout(()=>{
+                fetch(`/search/tournament?search=${this.value}`)
                 .then(response => response.text())
                 .then(data => {
                     tournamentListBlock.innerHTML = data
                 })
+            }, sendDelay)
+            
         })
 
     </script>
