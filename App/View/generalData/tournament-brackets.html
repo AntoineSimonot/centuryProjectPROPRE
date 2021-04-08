@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>quart</p>
+    {% for match in tournament["quaterfinals"]%}
+    <li>{{ match.team1.name }} vs {{ match.team2.name }}</li>
+    {% endfor %}
+    
+    <p>semifinal</p>
+    {% for match in tournament["semifinal"]%}
+    <li>{{ match.team1.name }} vs {{ match.team2.name }}</li>
+    {% endfor %}
+
+    <p>final</p>
+    {% for match in tournament["final"]%}
+    <li>{{ match.team1.name }} vs {{ match.team2.name }}</li>
+    {% endfor %}
+
+    {% if tournament.round == 1  %}
+    <form action="" method="post">
+        {% for key, match in tournament["quaterfinals"]%}
+        <fieldset id="quaterfinals">
+            <label for="{{match.team1.id}}">{{ match.team1.name }}</label>
+            <input type="radio" value="{{match.team1.id}}" name="match{{ key }}" id="{{match.team1.id}}">
+            <input type="radio" value="{{match.team2.id}}" name="match{{ key }}" id="{{match.team2.id}}">
+            <label for="{{match.team2.id}}">{{ match.team2.name }}</label>
+          </fieldset>
+        {% endfor %}
+        <input type="hidden" name="round" value="2">
+        <input type="submit" value="Envoyer">
+    </form>
+    {% endif %}
+   
+    {% if tournament.round == 2  %}
+    <form action="" method="post">
+        {% for key, match in tournament["semifinal"]%}
+        <fieldset id="semifinal">
+            <label for="{{match.team1.id}}">{{ match.team1.name }}</label>
+            <input type="radio" value="{{match.team1.id}}" name="match{{ key }}" id="{{match.team1.id}}">
+            <input type="radio" value="{{match.team2.id}}" name="match{{ key }}" id="{{match.team2.id}}">
+            <label for="{{match.team2.id}}">{{ match.team2.name }}</label>
+          </fieldset>
+        {% endfor %}
+        <input type="hidden" name="round" value="3">
+        <input type="submit" value="Envoyer">
+    </form>
+    {% endif %}
+
+    {% if tournament.round == 3  %}
+    <form action="" method="post">
+        {% for key, match in tournament["final"]%}
+        <fieldset id="final">
+            <label for="{{match.team1.id}}">{{ match.team1.name }}</label>
+            <input type="radio" value="{{match.team1.id}}" name="match{{ key }}" id="{{match.team1.id}}">
+            <input type="radio" value="{{match.team2.id}}" name="match{{ key }}" id="{{match.team2.id}}">
+            <label for="{{match.team2.id}}">{{ match.team2.name }}</label>
+          </fieldset>
+        {% endfor %}
+        <input type="hidden" name="round" value="4">
+        <input type="submit" value="Envoyer">
+    </form>
+    {% endif %}
+</body>
+</html>

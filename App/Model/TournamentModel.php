@@ -229,5 +229,18 @@ class TournamentModel
         ]);
     }
 
+    public function getTournamentInfo($tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT * FROM `teams_has_matchs` INNER JOIN teams ON teams_has_matchs.team1 = teams.id OR teams_has_matchs.team2 = teams.id WHERE tournament_id = :tournament_id');
+        $stmt->execute([
+            'tournament_id' => $tournament_id,
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
