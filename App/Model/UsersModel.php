@@ -38,48 +38,5 @@ class UsersModel
             "pseudo" => $pseudo
         ]);
     }
-
-    // public function getEvent($slug)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('SELECT * FROM events WHERE slug = :slug ');
-    //     $stmt->execute([
-    //         "slug" => $slug
-    //     ]);
-    //     return $stmt->fetch();
-    // }
-
-    // public function getUser($email, $password)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('SELECT * FROM users WHERE email = :email AND password = :password');
-    //     $stmt->execute([
-    //         "email" => $email,
-    //         "password" => $password
-    //     ]);
-    //     return $stmt->fetch(PDO::FETCH_ASSOC);
-    // }
-
- 
-
-    // public function buyPlace($id, $placesBought)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('UPDATE `events` SET `places` = :places WHERE id = :id;');
-    //     $stmt->execute([
-    //        "id" => $id,
-    //        "places" => $placesBought
-    //     ]);
-    // }
-
-    // public function getEventsUrl($url)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('SELECT * FROM `events` WHERE name LIKE :url');
-    //     $stmt->execute([
-    //         "url" => "%".$url."%"
-    //     ]);
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
 }
 

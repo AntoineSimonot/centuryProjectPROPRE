@@ -113,7 +113,7 @@ class TeamModel
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-   
+  
     public function showMembersOfTeam($teams_name){
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
@@ -130,6 +130,7 @@ class TeamModel
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
 }
 ?>
