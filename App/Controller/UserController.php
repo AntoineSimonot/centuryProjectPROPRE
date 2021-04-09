@@ -18,7 +18,6 @@ class UserController extends Controller
         if (isset($_POST["email"]) && isset($_POST["password"])) {
             $userModel = new UsersModel();
             $account = $userModel->login($_POST['email'], $_POST['password']);
-
             if (isset($account["email"]) && isset($account["password"]) && isset($account["id"])) {
                 $_SESSION["userEmail"] = $account["email"]; 
                 $_SESSION["userId"] = $account["id"];

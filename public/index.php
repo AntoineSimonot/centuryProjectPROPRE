@@ -37,4 +37,3 @@ $router->get('/create-team/{id}', '\App\Controller\TeamController@createTeam');
 $router->get('/teamInfo/{team.name}', '\App\Controller\TeamController@showMembersOfTeam'); 
 
 $router->run();
-
