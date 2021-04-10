@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+session_start();
+
 use App\Model\TournamentModel;
 use App\Model\MatchModel;
 use App\Model\TeamModel;
@@ -31,6 +33,17 @@ class MatchController extends Controller
             }
         }
     }
+
+    public function getUrlId(){
+        $url = $_SERVER["REQUEST_URI"];
+            if(preg_match("/\/(\d+)$/",$url,$matches)){
+            return $end=$matches[1];
+            }
+    }
+
+
+
+
 
     public function showMatchs($id)
     {  
@@ -118,8 +131,10 @@ class MatchController extends Controller
         
         }
 
-    $this->renderTemplate('generalData/tournament-brackets.html', [
+    $this->renderTemplate('generalData/tournament-brackets.html.twig', [
         'tournament' => $tournament,
+        'Admin' => isset($_SESSION["admin"]),
+        'urlId' => $this->getUrlId()
     ]);
 }
 }
