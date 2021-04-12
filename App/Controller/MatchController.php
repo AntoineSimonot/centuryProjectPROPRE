@@ -6,6 +6,8 @@ session_start();
 use App\Model\TournamentModel;
 use App\Model\MatchModel;
 use App\Model\TeamModel;
+use App\Model\BetModel;
+use App\Model\UsersModel;
 use App\Controller\TournamentController;
 use App\Controller\UserController;
 use Framework\Controller;
@@ -22,8 +24,6 @@ class MatchController extends Controller
         
         while ($i <= count($idOfteamsInTournament) - 2 ) {
             if ($i == 0) {
-                var_dump($_GET);
-                var_dump($id);
                 $MatchModel->createMatchs(1, $idOfteamsInTournament[$i]["id"], $idOfteamsInTournament[$i+1]["id"], $id);
                 $i = 1;
             }
@@ -50,7 +50,8 @@ class MatchController extends Controller
         $TeamModel = new TeamModel();
         $MatchModel = new MatchModel();
         $TournamentModel = new TournamentModel();
-
+        $BetModel = new BetModel();
+        $UsersModel = new UsersModel();
         $tournamentInfo = $TournamentModel->getTournamentInfo($id);
         $matchInfo = $MatchModel->showMatchs($id);
         $tournament = [
@@ -70,7 +71,14 @@ class MatchController extends Controller
             }
             if ($_POST["round"] == 4 && isset($_POST["match6"])) {
                 $MatchModel->createMatchs($_POST["round"], $_POST["match6"], NULL);
+                $betWinners = $BetModel->selectWinners($_POST["match6"]);
+
                 $TeamModel->insertWinner($_POST["match6"], $id);
+                foreach ($betWinners as $key => $winners) {
+                    $UsersModel->changeToken($winners["user_id"], +2);
+                }
+               
+                
             }
             header("Location: /tournament/matchs/$id");
         }

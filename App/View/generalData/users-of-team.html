@@ -12,8 +12,21 @@
     <ul class="list-group">
     {% for user in team %}
         <li class="list-group-item" style="width: 40%; font-size:58px;">{{user.pseudo}}</li>
+        
     {% endfor %}
     </ul>
+    <br>
+    <p>Déjà {{bets}} personnes ont parié sur ce tournoi!</p>
+
+    {% if hasBet == false  %}
+    <form action="/bet/{{ teamName  }}" method="post">
+        <input type="hidden" name="teamId" value="{{ team.id }}">
+        <input type="submit" value="Je paris >> " class="btn btn-primary"></a>
+    </form>
+    {% else %}
+    <p>Vous avez déjà parié! Bonne chance</p>
+    {% endif %}
+   
     <p><a href="/tournaments" class="btn btn-primary disconnect bg-danger">Retour =></a></p>
 </body>
 </html>

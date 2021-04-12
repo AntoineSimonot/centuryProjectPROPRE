@@ -131,7 +131,50 @@ class TeamModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function countMembersInteam($teams_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT COUNT(users_id) FROM `team_has_users` WHERE teams_id = :teams_id');
+        $stmt->execute([
+            'teams_id' => $teams_id
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    public function getBets($name){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT count(team_id) FROM `user_has_bets` 
+        INNER JOIN teams ON user_has_bets.team_id = teams.id
+        WHERE teams.name = :name');
+        $stmt->execute([
+            'name' => $name
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTeamsByName($name){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT * FROM `teams` WHERE name = :name');
+        $stmt->execute([
+            'name' => $name
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+   
+
+    
 }
 ?>
 

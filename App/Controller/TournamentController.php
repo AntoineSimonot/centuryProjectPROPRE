@@ -33,7 +33,7 @@ class TournamentController extends Controller
         }
         else{
             return $this->renderTemplate('Account/User/Page/account-bienvenue.html', [
-                'account' =>  $_SESSION["userEmail"],
+                'account' =>  $_SESSION,
                 'tournaments' => $tournaments
             ]);
         }
