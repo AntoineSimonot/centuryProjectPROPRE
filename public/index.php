@@ -35,5 +35,6 @@ $router->get('/inscription/{tournament.id}', '\App\Controller\TournamentControll
 
 $router->get('/create-team/{id}', '\App\Controller\TeamController@createTeam'); 
 $router->get('/teamInfo/{team.name}', '\App\Controller\TeamController@showMembersOfTeam'); 
+$router->post('/bet/{team.name}', '\App\Controller\betController@bet'); 
 
 $router->run();

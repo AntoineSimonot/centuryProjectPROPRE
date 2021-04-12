@@ -20,6 +20,7 @@ class UserController extends Controller
             $account = $userModel->login($_POST['email'], $_POST['password']);
             if (isset($account["email"]) && isset($account["password"]) && isset($account["id"])) {
                 $_SESSION["userEmail"] = $account["email"]; 
+                $_SESSION["userTokens"] = $account["tokens"]; 
                 $_SESSION["userId"] = $account["id"];
                 $_SESSION["userPassword"] = $account["password"];
                 if ($account["admin"] == 1){
@@ -32,15 +33,18 @@ class UserController extends Controller
                 }
                 else {
                     header('Location: /tournaments');
+                    
                 }
                 
             }
             else {
                 echo "Vos indentifiants sont invalides!";
             }  
+           
             if ($account["id"]) {
+                var_dump($account);
                 return $this->renderTemplate('Account/User/Page/account-bienvenue.html', [
-                    'account' => $account["email"]
+                        
                 ]);
             }
         }
@@ -52,10 +56,6 @@ class UserController extends Controller
     {
       
         if (isset($_POST["emailCreation"]) && isset($_POST["passwordCreation"]) && isset($_POST["passwordVerification"]) && isset($_POST["pseudo"]) && $_POST["passwordCreation"] == $_POST["passwordVerification"]  ) {
-            // dump($_POST["emailCreation"]);
-            // dump($_POST["pseudo"]);
-            // dump($_POST["passwordCreation"]);
-            // die();
             $userModel = new UsersModel();
             $account = $userModel->registration($_POST['emailCreation'], $_POST['passwordCreation'],$_POST["pseudo"]);
             $sendMail = new EmailController();
