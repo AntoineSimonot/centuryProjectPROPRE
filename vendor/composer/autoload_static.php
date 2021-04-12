@@ -23,6 +23,10 @@ class ComposerStaticInit1826908cf8fbc8957fca42c2000a8366
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\VarDumper\\' => 28,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
         'F' => 
         array (
             'Framework\\' => 10,
@@ -53,6 +57,10 @@ class ComposerStaticInit1826908cf8fbc8957fca42c2000a8366
         'Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Framework\\' => 
         array (

@@ -1,0 +1,13 @@
+<div class="team-content">
+    <p>Voici la liste des équipe participant a ce tournoit :</p>
+
+    {% if Teams > 0 %}
+        {% for team in Teams %}
+        <div>
+            <p><a href="/teamInfo/{{team.name}}" class="btn teams">{{team.name}}</a></p>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+     
+</div>

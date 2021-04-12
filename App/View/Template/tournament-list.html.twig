@@ -1,0 +1,21 @@
+<div class="tournament-content">
+    {% for tournament in tournaments %}
+        <div>
+            <div class="tournament-content-content1">
+                <p class="name"><span>Nom : </span> {{ tournament.name}}</p>
+                <div class="tournament-content-content2-user">
+                    <p class="dateCard"><span>Date : </span>{{ tournament.date}}</p>
+                    <p class="price"><span>Prix : </span> {{ tournament.price}}</p>
+                    <p class="price"><span>Places disponibles : </span> {{ tournament.places}}</p>
+                    <div>
+                       <p ><a href="/tournament/{{tournament.id}}" class="btn btn-primary btnLookTournament bg-warning">Voir le tournoi</a></p> 
+                       {% if Admin == 1 %}
+                            <p><a href="/admin/homepage/edit/{{tournament.id}}" class="btn btn-primary btnEdit bg-info">Edit</a> </p>
+                       {% endif %}
+                    </div>                 
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>

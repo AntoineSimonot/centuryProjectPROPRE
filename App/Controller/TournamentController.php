@@ -4,9 +4,20 @@ session_start();
 
 use App\Model\TournamentModel;
 use App\Model\TeamModel;
+use App\Controller\TeamController;
 use App\Controller\UserController;
+use App\Controller\EmailController;
 use Framework\Controller;
 use Service\TournamentManager;
+// -----------------------------------------------
+// require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+// -----------------------------------------------
+
+
 
 class TournamentController extends Controller
 {
@@ -15,15 +26,16 @@ class TournamentController extends Controller
         $TournamentModel = new TournamentModel();
         $tournaments = $TournamentModel->getTournaments();
         if (isset($_SESSION["admin"])){
-            return $this->renderTemplate('admin.html', [
+            return $this->renderTemplate('Account/Admin/Page/admin.html', [
                 'account' =>  $_SESSION["userEmail"],
-                'tournaments' => $tournaments
+                'tournaments' => $tournaments,
+                'Admin' => isset($_SESSION["admin"])
             ]);
         }
         else{
-            return $this->renderTemplate('account-bienvenue.html', [
-                'account' =>  $_SESSION["userEmail"],
-                'tournaments' => $tournaments
+            return $this->renderTemplate('Account/User/Page/account-bienvenue.html', [
+                'account' =>  $_SESSION,
+                'tournaments' => $tournaments,
             ]);
         }
         
@@ -32,12 +44,16 @@ class TournamentController extends Controller
 public function getTournament($id)
 {
     $TournamentModel = new TournamentModel();
+    $TeamsController = new TeamController();
     $tournament = $TournamentModel->getTournament($id);
     $inscriptionTournament = $TournamentModel->isInTournament($_SESSION["userId"], $id);
-    var_dump(isset($inscriptionTournament[0]));
-    return $this->renderTemplate('tournamentInfo.html', [
+    $teams = $TeamsController->getTeamsName($id);
+    return $this->renderTemplate('generalData/tournamentInfo.html', [
         'tournament' => $tournament,
-        'isInTournament' =>  isset($inscriptionTournament[0])
+        'isInTournament' =>  isset($inscriptionTournament[0]),
+        'Admin' => isset($_SESSION["admin"]),
+        'Teams' => $teams,
+        'Place' => $tournament['places']
     ]);
     }
 
@@ -49,7 +65,7 @@ public function getTournament($id)
                 $tournaments = $tournamentModel->editTournaments($_POST['name'], $_POST['description'], $_POST['date'], $_POST['price'], $id);
                 header('Location: /admin/homepage');
             }
-            $this->renderTemplate('edit-create.html', [
+            $this->renderTemplate('Account/Admin/modifyData/edit-create.html', [
                 'id' => $id
             ]);
         }
@@ -79,7 +95,7 @@ public function getTournament($id)
             else{
                 echo "Informations invalides";
             }
-            $this->renderTemplate('tournament-create.html');
+            $this->renderTemplate('Account/Admin/modifyData/tournament-create.html');
         } 
         else{
             header('Location: /admin/homepage/create');
@@ -95,7 +111,7 @@ public function getTournament($id)
         }else if(strlen($_GET['search']) == 0){
             $Tournament = $TournamentModel->getTournaments();
         }
-        $this->renderTemplate('tournament-list.html.twig',[
+        $this->renderTemplate('Template/tournament-list.html.twig',[
             'tournaments' => $Tournament
         ]);
     }
@@ -104,7 +120,7 @@ public function getTournament($id)
     {   
         $TournamentModel = new TournamentModel();
         $Tournaments = $TournamentModel->getUserTournaments($_SESSION["userEmail"]);
-        $this->renderTemplate('user-tournament.html', [
+        $this->renderTemplate('Account/User/userData/user-tournament.html', [
             'tournaments' => $Tournaments,
         ]);
     }
@@ -115,7 +131,8 @@ public function getTournament($id)
         $Tournaments = $TournamentModel->getUserTournamentByID($_SESSION["userEmail"], $id);
         $deleteUserFromTournament = $TournamentModel->deleteUserFromTournament($Tournaments["tournaments_id"], $Tournaments['users_id']);
         $placesUpdate = $TournamentModel->placesUpdate($id, 1);
-        header('Location: /myTournaments');
+        $sendMail = new EmailController();
+        $sendMail->sendEmailUnsub($Tournaments['name'],$Tournaments['date']);
     }
 
     public function inscriptionTournament($id)
@@ -126,14 +143,16 @@ public function getTournament($id)
         if (empty($inscriptionTournament) && $tournament["places"] == 1){
             $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
             $placesUpdate = $TournamentModel->placesUpdate($id, -1);
-            header('Location: /create-team');
+            // $sendMail = new EmailController();
+            // $sendMail->sendEmailInscription($tournament['name'],$tournament['date']);
+            header("Location: /create-team/$id");
         }
         elseif (empty($inscriptionTournament) && $tournament["places"] > 0){
             $inscriptionTournament = $TournamentModel->inscriptionTournament($id, $_SESSION["userId"]);
             $placesUpdate = $TournamentModel->placesUpdate($id, -1);
-            
+            $sendMail = new EmailController();
+            $sendMail->sendEmailInscriptionToTournament($tournament['name'],$tournament['date']);
         }
-        // header('Location: /myTournaments');
     }
 
     public function personInTournament()

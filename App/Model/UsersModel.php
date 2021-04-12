@@ -23,62 +23,37 @@ class UsersModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function registration($email, $password)
+    public function registration($email, $password, $pseudo)
     {
         try {
             $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
         } catch (Exception $e) {
             die('error on db' . $e->getMessage());
         }
-        
-        $stmt = $db->prepare("INSERT INTO `users` (`email`, `password`, `admin`) VALUES (:email, :password, 0)");
+
+        $stmt = $db->prepare("INSERT INTO `users` (`email`, `password`, `admin`, `pseudo`) VALUES (:email, :password, 0,:pseudo)");
         $stmt->execute([
             "email" => $email,
-            "password" => $password
+            "password" => $password,
+            "pseudo" => $pseudo
         ]);
     }
 
-    // public function getEvent($slug)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('SELECT * FROM events WHERE slug = :slug ');
-    //     $stmt->execute([
-    //         "slug" => $slug
-    //     ]);
-    //     return $stmt->fetch();
-    // }
+    public function changeToken($users_id, $change)
+    {
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }
 
-    // public function getUser($email, $password)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('SELECT * FROM users WHERE email = :email AND password = :password');
-    //     $stmt->execute([
-    //         "email" => $email,
-    //         "password" => $password
-    //     ]);
-    //     return $stmt->fetch(PDO::FETCH_ASSOC);
-    // }
+        $stmt = $db->prepare("UPDATE `users` SET `tokens` = tokens + :change WHERE `users`.`id` = :users_id");
+        $stmt->execute([
+            "users_id" => $users_id,
+            "change" => $change
+        ]);
+        var_dump($users_id);
+        var_dump("tokens ".$change);
+    }
 
- 
-
-    // public function buyPlace($id, $placesBought)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('UPDATE `events` SET `places` = :places WHERE id = :id;');
-    //     $stmt->execute([
-    //        "id" => $id,
-    //        "places" => $placesBought
-    //     ]);
-    // }
-
-    // public function getEventsUrl($url)
-    // {
-    //     $db = $this->getDb();
-    //     $stmt = $db->prepare('SELECT * FROM `events` WHERE name LIKE :url');
-    //     $stmt->execute([
-    //         "url" => "%".$url."%"
-    //     ]);
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
 }
-

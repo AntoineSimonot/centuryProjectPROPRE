@@ -1,0 +1,20 @@
+<div class="tournament-content">
+    {% for tournament in tournaments %}
+        <div>
+            <div class="tournament-content-content1">
+                <p class="name"><span>Nom : </span> {{ tournament.name}}</p>
+                <p class="description">{{ tournament.description}}</p>
+            </div>
+            <div class="tournament-content-content2-user ">
+                <p class="dateCard"><span>Date : </span>{{ tournament.date}}</p>
+                <p class="price"><span>Prix : </span> {{ tournament.price}}</p>
+                <p class="price"><span>Places disponibles : </span> {{ tournament.places}}</p>
+                {% if tournament.places > 0 %}
+                    <div class="unsub">
+                        <p><a href="/myTournaments/delete/{{tournament.tournaments_id}}" class="btn btn-primary bg-danger">Me désinscrire</a></p>
+                    </div>  
+                {% endif %}         
+            </div>
+        </div>
+    {% endfor %}
+</div>

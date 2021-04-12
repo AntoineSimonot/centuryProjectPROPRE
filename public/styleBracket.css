@@ -1,0 +1,48 @@
+.bracket{
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    margin-left: 20px;
+    position: relative;
+}
+
+.bracket > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+form{
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.winner > p{
+    background-color: rgb(210, 162, 30);
+    color: white;
+    padding: 10px;
+}
+
+
+
+
+.final > p{
+ background-color: rgb(133, 122, 31);
+ color: white;
+ padding: 10px;
+ z-index: 1;
+
+}
+
+.semi > p{
+    background-color: rgb(105, 78, 42);
+    color: white;
+    padding: 10px;
+}
+
+.quart > p{
+    background-color: rgb(105, 78, 42);
+    color: white;
+    padding: 10px;
+    z-index: 1;
+}
+

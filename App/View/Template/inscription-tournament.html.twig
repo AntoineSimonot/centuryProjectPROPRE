@@ -1,0 +1,17 @@
+<p><a href="/tournaments" class="btn btn-primary disconnect bg-danger">Retour</a></p>
+<div class="tournament-inscription">
+   <p class="name"><span>Nom : </span> {{ tournament.name}}</p>
+   <div class="description-content">
+       <p class="description"><span>Description : </span> </p>
+       <p><span>{{ tournament.description}}</span></p>
+   </div>
+   <p class="dateCard"><span>Prix : </span> {{ tournament.price}}</p>
+   <p class="price"><span>Date : </span>{{ tournament.date}}</p> 
+   
+    {% if isInTournament == false and Admin == false and Place != 0 %}
+        <div class="inscription-btn">
+            <p class="btn btn-primary"><a href="/inscription/{{tournament.id}}">Je m'inscris!</a></p>
+        </div>
+    {% endif %}
+
+</div>

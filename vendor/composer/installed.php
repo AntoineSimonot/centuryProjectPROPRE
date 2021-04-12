@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c79e5189be89dac5fcfa093cff1dceb835da4010',
+    'reference' => '749084c14dd36361c32a7139fade6344a33c651c',
     'name' => 'simon/php_mvc_final',
   ),
   'versions' => 
@@ -29,6 +29,15 @@
       ),
       'reference' => 'd41701efe58ba2df9cae029c3d21e1518cc6780e',
     ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.4.0',
+      'version' => '6.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '050d430203105c27c30efd1dce7aa421ad882d01',
+    ),
     'simon/php_mvc_final' => 
     array (
       'pretty_version' => 'dev-master',
@@ -36,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c79e5189be89dac5fcfa093cff1dceb835da4010',
+      'reference' => '749084c14dd36361c32a7139fade6344a33c651c',
     ),
     'symfony/polyfill-ctype' => 
     array (

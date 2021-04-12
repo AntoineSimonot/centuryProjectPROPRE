@@ -34,5 +34,147 @@ class TeamModel
         ]);
     }
 
+    public function idOfpersonsInTournament($tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT * FROM `users_has_tournaments` WHERE tournaments_id = :tournament_id
+        ');
+        $stmt->execute([
+            'tournament_id' => $tournament_id,
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function idOfteamsInTournament($tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT * FROM `teams` WHERE `tournament_id` = :tournament_id
+        ');
+        $stmt->execute([
+            'tournament_id' => $tournament_id,
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insertUserInTeam($users_id, $teams_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('INSERT INTO `team_has_users` (`users_id`, `teams_id`) VALUES (:user_id, :team_id);');
+        $stmt->execute([
+            'user_id' => $users_id,
+            'team_id' => $teams_id
+        ]);
+    }
+
+    public function insertWinner($teams_id, $tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('UPDATE `tournaments` SET `winner` = :winner WHERE `tournaments`.`id` = :tournament_id;');
+        $stmt->execute([
+            'tournament_id' => $tournament_id,
+            'winner' => $teams_id
+        ]);
+    }
+    
+    public function NumberOfpersonsInTeam($teams_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT COUNT(users_id) FROM `team_has_users` WHERE teams_id = :team_id');
+        $stmt->execute([
+            'team_id' => $teams_id
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getTeamsName($tournament_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT teams.name FROM `teams`  INNER JOIN tournaments ON tournaments.id = teams.tournament_id WHERE tournament_id = :tournament_id');
+        $stmt->execute([
+            'tournament_id' => $tournament_id
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+  
+    public function showMembersOfTeam($teams_name){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT users.pseudo FROM users
+        INNER JOIN team_has_users ON users.id = team_has_users.users_id
+        INNER JOIN teams on teams.id = team_has_users.teams_id
+        WHERE teams.name = :teams_name
+        ');
+        $stmt->execute([
+            'teams_name' => $teams_name
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countMembersInteam($teams_id){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT COUNT(users_id) FROM `team_has_users` WHERE teams_id = :teams_id');
+        $stmt->execute([
+            'teams_id' => $teams_id
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getBets($name){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT count(team_id) FROM `user_has_bets` 
+        INNER JOIN teams ON user_has_bets.team_id = teams.id
+        WHERE teams.name = :name');
+        $stmt->execute([
+            'name' => $name
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTeamsByName($name){
+        try {
+            $db = new PDO('mysql:host=127.0.0.1;dbname=century_bdd;charset=utf8', 'root', '');
+        } catch (Exception $e) {
+            die('error on db' . $e->getMessage());
+        }    
+        $stmt = $db->prepare('SELECT * FROM `teams` WHERE name = :name');
+        $stmt->execute([
+            'name' => $name
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+   
+
+    
 }
 ?>
+
