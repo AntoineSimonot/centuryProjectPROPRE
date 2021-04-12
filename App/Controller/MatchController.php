@@ -134,7 +134,8 @@ class MatchController extends Controller
     $this->renderTemplate('generalData/tournament-brackets.html.twig', [
         'tournament' => $tournament,
         'Admin' => isset($_SESSION["admin"]),
-        'urlId' => $this->getUrlId()
+        'urlId' => $this->getUrlId(),
+        'winner' => $matchInfo
     ]);
 }
 }

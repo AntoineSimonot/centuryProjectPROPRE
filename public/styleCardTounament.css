@@ -5,21 +5,27 @@ body{
 
 .tournament-content {
     display: flex;
-    padding-left: 2%;
     padding-top: 30px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
 }
+
 .tournament-content > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border: black solid 2px;
     border-radius: 30px;
-    width: 15%;
+    width: 250px;
     height: 250px;
     align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    margin-bottom: 30px;
     margin-left: 30px;
+    margin-right: 30px;
 }
 .tournament-content-content1{
     display: flex;

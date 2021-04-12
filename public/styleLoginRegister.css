@@ -1,0 +1,11 @@
+.form-group{
+    padding-bottom: 10px;
+}
+
+.formLogin{
+    margin-left: 10px;
+}
+
+.formLogin > a{
+    margin-left: 200px;
+}
