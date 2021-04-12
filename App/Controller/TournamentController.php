@@ -28,13 +28,14 @@ class TournamentController extends Controller
         if (isset($_SESSION["admin"])){
             return $this->renderTemplate('Account/Admin/Page/admin.html', [
                 'account' =>  $_SESSION["userEmail"],
-                'tournaments' => $tournaments
+                'tournaments' => $tournaments,
+                'Admin' => isset($_SESSION["admin"])
             ]);
         }
         else{
             return $this->renderTemplate('Account/User/Page/account-bienvenue.html', [
                 'account' =>  $_SESSION,
-                'tournaments' => $tournaments
+                'tournaments' => $tournaments,
             ]);
         }
         

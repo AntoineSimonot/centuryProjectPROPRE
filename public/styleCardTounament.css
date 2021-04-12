@@ -20,7 +20,7 @@ body{
     border: black solid 2px;
     border-radius: 30px;
     width: 250px;
-    height: 250px;
+    height:300px;
     align-items: center;
     padding-top: 20px;
     margin-bottom: 30px;
@@ -54,21 +54,19 @@ body{
 
 .tournament-content-content2-user > div{
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 50px;
+    flex-direction: column;
+    align-items: center;
+    height: 100px;
 }
 
 
 
 .btnLookTournament{
-    margin-left: -15%;
     border: none;
 }
 
 
 .btnEdit{
-    margin-left: 15%;
     border: none;
 }
 
