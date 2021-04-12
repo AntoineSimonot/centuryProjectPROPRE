@@ -30,7 +30,6 @@ class TeamController extends Controller
         while (count($players) > 0) {
             $randomKey = rand(0, count($players) - 1);
             $player = $players[$randomKey];
-            var_dump($players);
             $team[] = $player;
             
             unset($players[$randomKey]);
@@ -43,8 +42,6 @@ class TeamController extends Controller
                 $insertUserInTeam = $TeamModel-> insertUserInTeam($team[2], $idOfteamsInTournament[$teamId]["id"]);
                 $team = [];
                 $teamId = $teamId + 1;
-                
-
             }
         }
        
