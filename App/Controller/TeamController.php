@@ -49,7 +49,7 @@ class TeamController extends Controller
         }
        
         $MatchController->createMatchs($id);
-        // header('Location: /myTournaments');
+        header('Location: /myTournaments');
     }
 
     public function getTeamsName($id)

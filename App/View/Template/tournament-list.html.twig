@@ -9,7 +9,9 @@
                     <p class="price"><span>Places disponibles : </span> {{ tournament.places}}</p>
                     <div>
                        <p ><a href="/tournament/{{tournament.id}}" class="btn btn-primary btnLookTournament bg-warning">Voir le tournoi</a></p> 
-                       <p><a href="/admin/homepage/edit/{{tournament.id}}" class="btn btn-primary btnEdit bg-info">Edit</a> </p>
+                       {% if Admin == 1 %}
+                            <p><a href="/admin/homepage/edit/{{tournament.id}}" class="btn btn-primary btnEdit bg-info">Edit</a> </p>
+                       {% endif %}
                     </div>                 
                 </div>
             </div>
